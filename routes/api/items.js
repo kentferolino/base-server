@@ -32,7 +32,7 @@ router.put("/:id", auth, (req, res) => {
   const itemID = req.params.id;
   const itemInputs = req.body;
 
-  Item.findById(itemID, function(err, item) {
+  Item.findById(itemID, function (err, item) {
     if (!item) res.status(404).json({ success: false, msg: "Item not found." });
     else {
       item.name = itemInputs.name;
@@ -42,7 +42,7 @@ router.put("/:id", auth, (req, res) => {
         .catch(err =>
           res
             .status(400)
-            .json({ success: false, msg: `Update failed please. ${err}` })
+            .json({ success: false, msg: `Update failed. ${err}` })
         );
     }
   });

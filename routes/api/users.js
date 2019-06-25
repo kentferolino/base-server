@@ -2,6 +2,8 @@ const express = require("express");
 const bcrypt = require("bcryptjs");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
+const auth = require("../../middleware/auth");
+
 require("dotenv").config();
 
 // Item Model
@@ -62,3 +64,24 @@ router.post("/", (req, res) => {
   });
 });
 module.exports = router;
+
+// @route  PUT api/users/updateInfo
+// @desc   Update user info
+// @access Private
+router.put("/updateInfo", auth, (req, res) => {
+  console.log('DBG req.user.id->', req.user.id);
+  console.log('DBG req.user->', req.user);
+  debugger;
+  const { name, email } = req.body;
+
+  const userId = req.user.id;
+
+  User.findById(req.user.id, (err, user) => {
+    if (!user) res.status(404).json({ success: false, msg: "Update failed. User not found." });
+    else {
+      user.name = name;
+      user.email = email;
+      user.save().then(user => res.json(user)).catch(err => res.status(400).json({ success: false, msg: `Update failed. ${err}` }))
+    }
+  });
+});
