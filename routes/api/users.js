@@ -69,10 +69,7 @@ module.exports = router;
 // @desc   Update user info
 // @access Private
 router.put("/updateInfo", auth, (req, res) => {
-  console.log('DBG req.user.id->', req.user.id);
-  console.log('DBG req.user->', req.user);
-  debugger;
-  const { name, email } = req.body;
+  const { name, email, birthdate, gender } = req.body;
 
   const userId = req.user.id;
 
@@ -81,6 +78,8 @@ router.put("/updateInfo", auth, (req, res) => {
     else {
       user.name = name;
       user.email = email;
+      user.birthdate = birthdate;
+      user.gender = gender;
       user.save().then(user => res.json(user)).catch(err => res.status(400).json({ success: false, msg: `Update failed. ${err}` }))
     }
   });

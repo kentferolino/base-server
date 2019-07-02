@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 const auth = require('../../middleware/auth');
 require('dotenv').config();
 
-// Item Model
+// User Model
 const User = require('../../models/User');
 
 // @route  POST api/auth
@@ -43,6 +43,8 @@ router.post('/', (req, res) => {
                                     id: user.id,
                                     name: user.name,
                                     email: user.email,
+                                    birthdate: user.birthdate,
+                                    gender: user.gender,
                                 }
                             })
                         }
