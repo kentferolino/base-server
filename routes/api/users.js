@@ -6,7 +6,7 @@ const auth = require("../../middleware/auth");
 
 require("dotenv").config();
 
-// Item Model
+// User Model
 const User = require("../../models/User");
 
 // @route  POST api/users
